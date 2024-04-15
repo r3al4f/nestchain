@@ -1,6 +1,9 @@
 syntax = "proto3";
 package nestchain.hotels;
 
+// Specify the Go package where the generated code will reside
+option go_package = "github.com/r3al4f/nestchain/x/hotels/types";
+
 import "cosmos/base/v1beta1/coin.proto"; // This import is necessary for using the Coin type
 
 message Booking {

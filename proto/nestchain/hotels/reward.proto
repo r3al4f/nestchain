@@ -1,6 +1,9 @@
 syntax = "proto3";
 package nestchain.hotels;
 
+// Specify the Go package where the generated code will reside
+option go_package = "github.com/re3l4f/nestchain/x/hotels/types";
+
 message Reward {
   string customer_id = 1; // Identifier for the customer
   int32 points = 2; // Loyalty points
