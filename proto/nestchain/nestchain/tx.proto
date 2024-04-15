@@ -1,4 +1,5 @@
 syntax = "proto3";
+
 package nestchain.nestchain;
 
 import "amino/amino.proto";
@@ -12,29 +13,63 @@ option go_package = "github.com/r3al4f/nestchain/x/nestchain/types";
 // Msg defines the Msg service.
 service Msg {
   option (cosmos.msg.v1.service) = true;
-
+  
   // UpdateParams defines a (governance) operation for updating the module
   // parameters. The authority defaults to the x/gov module account.
-  rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+  rpc UpdateParams        (MsgUpdateParams       ) returns (MsgUpdateParamsResponse       );
+  rpc CreateBooking       (MsgCreateBooking      ) returns (MsgCreateBookingResponse      );
+  rpc UpdateLoyaltyPoints (MsgUpdateLoyaltyPoints) returns (MsgUpdateLoyaltyPointsResponse);
+  rpc ProcessPayment      (MsgProcessPayment     ) returns (MsgProcessPaymentResponse     );
 }
-
 // MsgUpdateParams is the Msg/UpdateParams request type.
 message MsgUpdateParams {
-  option (cosmos.msg.v1.signer) = "authority";
-  option (amino.name) = "nestchain/x/nestchain/MsgUpdateParams";
-
+  option (cosmos.msg.v1.signer) =                             "authority";
+  option           (amino.name) = "nestchain/x/nestchain/MsgUpdateParams";
+  
   // authority is the address that controls the module (defaults to x/gov unless overwritten).
   string authority = 1 [(cosmos_proto.scalar) = "cosmos.AddressString"];
 
   // params defines the module parameters to update.
-  //
+  
   // NOTE: All parameters must be supplied.
-  Params params = 2 [
-    (gogoproto.nullable) = false,
-    (amino.dont_omitempty) = true
-  ];
+  Params params = 2 [(gogoproto.nullable) = false, (amino.dont_omitempty) = true];
 }
 
 // MsgUpdateParamsResponse defines the response structure for executing a
 // MsgUpdateParams message.
 message MsgUpdateParamsResponse {}
+
+message MsgCreateBooking {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator    = 1;
+  string hotelId    = 2;
+  string customerId = 3;
+  string startDate  = 4;
+  string endDate    = 5;
+  string roomType   = 6;
+  string price      = 7;
+}
+
+message MsgCreateBookingResponse {}
+
+message MsgUpdateLoyaltyPoints {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator    = 1;
+  string customerId = 2;
+  string points     = 3;
+}
+
+message MsgUpdateLoyaltyPointsResponse {
+  string totalPoints = 1;
+}
+
+message MsgProcessPayment {
+  option (cosmos.msg.v1.signer) = "creator";
+  string creator     = 1;
+  string customerId  = 2;
+  string amount      = 3;
+  string description = 4;
+}
+
+message MsgProcessPaymentResponse {}
+

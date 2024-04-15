@@ -1,0 +1,15 @@
+syntax = "proto3";
+package nestchain.hotels;
+
+import "cosmos/base/v1beta1/coin.proto"; // This import is necessary for using the Coin type
+
+message Booking {
+  string booking_id = 1; // Unique identifier for the booking
+  string hotel_id = 2; // Identifier for the hotel
+  string customer_id = 3; // Identifier for the customer
+  string start_date = 4; // Start date of the booking
+  string end_date = 5; // End date of the booking
+  string room_type = 6; // Type of room booked
+  cosmos.base.v1beta1.Coin price = 7; // Price in coins
+}
+

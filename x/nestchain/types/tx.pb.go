@@ -6,10 +6,6 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	io "io"
-	math "math"
-	math_bits "math/bits"
-
 	_ "github.com/cosmos/cosmos-proto"
 	_ "github.com/cosmos/cosmos-sdk/types/msgservice"
 	_ "github.com/cosmos/cosmos-sdk/types/tx/amino"
@@ -19,6 +15,9 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	io "io"
+	math "math"
+	math_bits "math/bits"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -36,8 +35,6 @@ const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 type MsgUpdateParams struct {
 	// authority is the address that controls the module (defaults to x/gov unless overwritten).
 	Authority string `protobuf:"bytes,1,opt,name=authority,proto3" json:"authority,omitempty"`
-	// params defines the module parameters to update.
-	//
 	// NOTE: All parameters must be supplied.
 	Params Params `protobuf:"bytes,2,opt,name=params,proto3" json:"params"`
 }
@@ -127,36 +124,397 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
+type MsgCreateBooking struct {
+	Creator    string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	HotelId    string `protobuf:"bytes,2,opt,name=hotelId,proto3" json:"hotelId,omitempty"`
+	CustomerId string `protobuf:"bytes,3,opt,name=customerId,proto3" json:"customerId,omitempty"`
+	StartDate  string `protobuf:"bytes,4,opt,name=startDate,proto3" json:"startDate,omitempty"`
+	EndDate    string `protobuf:"bytes,5,opt,name=endDate,proto3" json:"endDate,omitempty"`
+	RoomType   string `protobuf:"bytes,6,opt,name=roomType,proto3" json:"roomType,omitempty"`
+	Price      string `protobuf:"bytes,7,opt,name=price,proto3" json:"price,omitempty"`
+}
+
+func (m *MsgCreateBooking) Reset()         { *m = MsgCreateBooking{} }
+func (m *MsgCreateBooking) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateBooking) ProtoMessage()    {}
+func (*MsgCreateBooking) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{2}
+}
+func (m *MsgCreateBooking) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateBooking) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateBooking.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateBooking) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateBooking.Merge(m, src)
+}
+func (m *MsgCreateBooking) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateBooking) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateBooking.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateBooking proto.InternalMessageInfo
+
+func (m *MsgCreateBooking) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetHotelId() string {
+	if m != nil {
+		return m.HotelId
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetCustomerId() string {
+	if m != nil {
+		return m.CustomerId
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetStartDate() string {
+	if m != nil {
+		return m.StartDate
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetEndDate() string {
+	if m != nil {
+		return m.EndDate
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetRoomType() string {
+	if m != nil {
+		return m.RoomType
+	}
+	return ""
+}
+
+func (m *MsgCreateBooking) GetPrice() string {
+	if m != nil {
+		return m.Price
+	}
+	return ""
+}
+
+type MsgCreateBookingResponse struct {
+}
+
+func (m *MsgCreateBookingResponse) Reset()         { *m = MsgCreateBookingResponse{} }
+func (m *MsgCreateBookingResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgCreateBookingResponse) ProtoMessage()    {}
+func (*MsgCreateBookingResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{3}
+}
+func (m *MsgCreateBookingResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgCreateBookingResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgCreateBookingResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgCreateBookingResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgCreateBookingResponse.Merge(m, src)
+}
+func (m *MsgCreateBookingResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgCreateBookingResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgCreateBookingResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgCreateBookingResponse proto.InternalMessageInfo
+
+type MsgUpdateLoyaltyPoints struct {
+	Creator    string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CustomerId string `protobuf:"bytes,2,opt,name=customerId,proto3" json:"customerId,omitempty"`
+	Points     string `protobuf:"bytes,3,opt,name=points,proto3" json:"points,omitempty"`
+}
+
+func (m *MsgUpdateLoyaltyPoints) Reset()         { *m = MsgUpdateLoyaltyPoints{} }
+func (m *MsgUpdateLoyaltyPoints) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateLoyaltyPoints) ProtoMessage()    {}
+func (*MsgUpdateLoyaltyPoints) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{4}
+}
+func (m *MsgUpdateLoyaltyPoints) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateLoyaltyPoints) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateLoyaltyPoints.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateLoyaltyPoints) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateLoyaltyPoints.Merge(m, src)
+}
+func (m *MsgUpdateLoyaltyPoints) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateLoyaltyPoints) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateLoyaltyPoints.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateLoyaltyPoints proto.InternalMessageInfo
+
+func (m *MsgUpdateLoyaltyPoints) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgUpdateLoyaltyPoints) GetCustomerId() string {
+	if m != nil {
+		return m.CustomerId
+	}
+	return ""
+}
+
+func (m *MsgUpdateLoyaltyPoints) GetPoints() string {
+	if m != nil {
+		return m.Points
+	}
+	return ""
+}
+
+type MsgUpdateLoyaltyPointsResponse struct {
+	TotalPoints string `protobuf:"bytes,1,opt,name=totalPoints,proto3" json:"totalPoints,omitempty"`
+}
+
+func (m *MsgUpdateLoyaltyPointsResponse) Reset()         { *m = MsgUpdateLoyaltyPointsResponse{} }
+func (m *MsgUpdateLoyaltyPointsResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgUpdateLoyaltyPointsResponse) ProtoMessage()    {}
+func (*MsgUpdateLoyaltyPointsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{5}
+}
+func (m *MsgUpdateLoyaltyPointsResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgUpdateLoyaltyPointsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgUpdateLoyaltyPointsResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgUpdateLoyaltyPointsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgUpdateLoyaltyPointsResponse.Merge(m, src)
+}
+func (m *MsgUpdateLoyaltyPointsResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgUpdateLoyaltyPointsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgUpdateLoyaltyPointsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgUpdateLoyaltyPointsResponse proto.InternalMessageInfo
+
+func (m *MsgUpdateLoyaltyPointsResponse) GetTotalPoints() string {
+	if m != nil {
+		return m.TotalPoints
+	}
+	return ""
+}
+
+type MsgProcessPayment struct {
+	Creator     string `protobuf:"bytes,1,opt,name=creator,proto3" json:"creator,omitempty"`
+	CustomerId  string `protobuf:"bytes,2,opt,name=customerId,proto3" json:"customerId,omitempty"`
+	Amount      string `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
+	Description string `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
+}
+
+func (m *MsgProcessPayment) Reset()         { *m = MsgProcessPayment{} }
+func (m *MsgProcessPayment) String() string { return proto.CompactTextString(m) }
+func (*MsgProcessPayment) ProtoMessage()    {}
+func (*MsgProcessPayment) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{6}
+}
+func (m *MsgProcessPayment) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgProcessPayment) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgProcessPayment.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgProcessPayment) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgProcessPayment.Merge(m, src)
+}
+func (m *MsgProcessPayment) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgProcessPayment) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgProcessPayment.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgProcessPayment proto.InternalMessageInfo
+
+func (m *MsgProcessPayment) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *MsgProcessPayment) GetCustomerId() string {
+	if m != nil {
+		return m.CustomerId
+	}
+	return ""
+}
+
+func (m *MsgProcessPayment) GetAmount() string {
+	if m != nil {
+		return m.Amount
+	}
+	return ""
+}
+
+func (m *MsgProcessPayment) GetDescription() string {
+	if m != nil {
+		return m.Description
+	}
+	return ""
+}
+
+type MsgProcessPaymentResponse struct {
+}
+
+func (m *MsgProcessPaymentResponse) Reset()         { *m = MsgProcessPaymentResponse{} }
+func (m *MsgProcessPaymentResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgProcessPaymentResponse) ProtoMessage()    {}
+func (*MsgProcessPaymentResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_67a82bd6f220ca99, []int{7}
+}
+func (m *MsgProcessPaymentResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgProcessPaymentResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgProcessPaymentResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgProcessPaymentResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgProcessPaymentResponse.Merge(m, src)
+}
+func (m *MsgProcessPaymentResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgProcessPaymentResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgProcessPaymentResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgProcessPaymentResponse proto.InternalMessageInfo
+
 func init() {
 	proto.RegisterType((*MsgUpdateParams)(nil), "nestchain.nestchain.MsgUpdateParams")
 	proto.RegisterType((*MsgUpdateParamsResponse)(nil), "nestchain.nestchain.MsgUpdateParamsResponse")
+	proto.RegisterType((*MsgCreateBooking)(nil), "nestchain.nestchain.MsgCreateBooking")
+	proto.RegisterType((*MsgCreateBookingResponse)(nil), "nestchain.nestchain.MsgCreateBookingResponse")
+	proto.RegisterType((*MsgUpdateLoyaltyPoints)(nil), "nestchain.nestchain.MsgUpdateLoyaltyPoints")
+	proto.RegisterType((*MsgUpdateLoyaltyPointsResponse)(nil), "nestchain.nestchain.MsgUpdateLoyaltyPointsResponse")
+	proto.RegisterType((*MsgProcessPayment)(nil), "nestchain.nestchain.MsgProcessPayment")
+	proto.RegisterType((*MsgProcessPaymentResponse)(nil), "nestchain.nestchain.MsgProcessPaymentResponse")
 }
 
 func init() { proto.RegisterFile("nestchain/nestchain/tx.proto", fileDescriptor_67a82bd6f220ca99) }
 
 var fileDescriptor_67a82bd6f220ca99 = []byte{
-	// 336 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0xc9, 0x4b, 0x2d, 0x2e,
-	0x49, 0xce, 0x48, 0xcc, 0xcc, 0xd3, 0x47, 0xb0, 0x4a, 0x2a, 0xf4, 0x0a, 0x8a, 0xf2, 0x4b, 0xf2,
-	0x85, 0x84, 0xe1, 0x62, 0x7a, 0x70, 0x96, 0x94, 0x60, 0x62, 0x6e, 0x66, 0x5e, 0xbe, 0x3e, 0x98,
-	0x84, 0xa8, 0x93, 0x12, 0x4f, 0xce, 0x2f, 0xce, 0xcd, 0x2f, 0xd6, 0xcf, 0x2d, 0x4e, 0xd7, 0x2f,
-	0x33, 0x04, 0x51, 0x50, 0x09, 0x49, 0x88, 0x44, 0x3c, 0x98, 0xa7, 0x0f, 0xe1, 0x40, 0xa5, 0x44,
-	0xd2, 0xf3, 0xd3, 0xf3, 0x21, 0xe2, 0x20, 0x16, 0x54, 0x54, 0x01, 0x9b, 0x7b, 0x0a, 0x12, 0x8b,
-	0x12, 0x73, 0xa1, 0xfa, 0x94, 0x0e, 0x33, 0x72, 0xf1, 0xfb, 0x16, 0xa7, 0x87, 0x16, 0xa4, 0x24,
-	0x96, 0xa4, 0x06, 0x80, 0x65, 0x84, 0xcc, 0xb8, 0x38, 0x13, 0x4b, 0x4b, 0x32, 0xf2, 0x8b, 0x32,
-	0x4b, 0x2a, 0x25, 0x18, 0x15, 0x18, 0x35, 0x38, 0x9d, 0x24, 0x2e, 0x6d, 0xd1, 0x15, 0x81, 0x5a,
-	0xe8, 0x98, 0x92, 0x52, 0x94, 0x5a, 0x5c, 0x1c, 0x5c, 0x52, 0x94, 0x99, 0x97, 0x1e, 0x84, 0x50,
-	0x2a, 0x64, 0xc7, 0xc5, 0x06, 0x31, 0x5b, 0x82, 0x49, 0x81, 0x51, 0x83, 0xdb, 0x48, 0x5a, 0x0f,
-	0x8b, 0x87, 0xf5, 0x20, 0x96, 0x38, 0x71, 0x9e, 0xb8, 0x27, 0xcf, 0xb0, 0xe2, 0xf9, 0x06, 0x2d,
-	0xc6, 0x20, 0xa8, 0x2e, 0x2b, 0x8b, 0xa6, 0xe7, 0x1b, 0xb4, 0x10, 0xe6, 0x75, 0x3d, 0xdf, 0xa0,
-	0xa5, 0x8a, 0x70, 0x76, 0x05, 0x92, 0x17, 0xd0, 0x5c, 0xac, 0x24, 0xc9, 0x25, 0x8e, 0x26, 0x14,
-	0x94, 0x5a, 0x5c, 0x90, 0x9f, 0x57, 0x9c, 0x6a, 0x54, 0xc0, 0xc5, 0xec, 0x5b, 0x9c, 0x2e, 0x94,
-	0xc4, 0xc5, 0x83, 0xe2, 0x47, 0x15, 0xac, 0x6e, 0x43, 0x33, 0x44, 0x4a, 0x87, 0x18, 0x55, 0x30,
-	0xab, 0xa4, 0x58, 0x1b, 0x40, 0xde, 0x71, 0x72, 0x3f, 0xf1, 0x48, 0x8e, 0xf1, 0xc2, 0x23, 0x39,
-	0xc6, 0x07, 0x8f, 0xe4, 0x18, 0x27, 0x3c, 0x96, 0x63, 0xb8, 0xf0, 0x58, 0x8e, 0xe1, 0xc6, 0x63,
-	0x39, 0x86, 0x28, 0xdd, 0xf4, 0xcc, 0x92, 0x8c, 0xd2, 0x24, 0xbd, 0xe4, 0xfc, 0x5c, 0xfd, 0x22,
-	0xe3, 0xc4, 0x1c, 0x93, 0x34, 0x7d, 0xec, 0xfe, 0x2b, 0xa9, 0x2c, 0x48, 0x2d, 0x4e, 0x62, 0x03,
-	0x47, 0x91, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0xd2, 0xa6, 0x56, 0x7e, 0x56, 0x02, 0x00, 0x00,
+	// 637 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xa4, 0x54, 0xbf, 0x6f, 0xd3, 0x4e,
+	0x14, 0x8f, 0xdb, 0x6f, 0xd3, 0x6f, 0x5e, 0xcb, 0x8f, 0xba, 0x55, 0xeb, 0xb8, 0x95, 0x89, 0x22,
+	0x8a, 0xaa, 0x40, 0x6c, 0xd1, 0x20, 0x84, 0x3a, 0x20, 0x11, 0x90, 0x50, 0x25, 0x22, 0x45, 0x01,
+	0x16, 0x16, 0x74, 0xb1, 0x0f, 0xc7, 0x22, 0xf6, 0x59, 0x77, 0x17, 0x88, 0x37, 0xc4, 0xc8, 0xc4,
+	0xc2, 0xff, 0xc0, 0x98, 0x81, 0x89, 0x95, 0xa5, 0x63, 0xc5, 0xc4, 0x54, 0xa1, 0x64, 0xc8, 0xbf,
+	0x81, 0xfc, 0x33, 0xb1, 0xeb, 0x56, 0x41, 0x2c, 0xc9, 0xbd, 0xcf, 0xe7, 0xdd, 0x7b, 0x9f, 0xcf,
+	0xf3, 0xdd, 0xc1, 0x9e, 0x83, 0x19, 0xd7, 0x7b, 0xc8, 0x72, 0xb4, 0xd9, 0x8a, 0x0f, 0x55, 0x97,
+	0x12, 0x4e, 0xc4, 0xcd, 0x04, 0x53, 0x93, 0x95, 0xbc, 0x81, 0x6c, 0xcb, 0x21, 0x5a, 0xf0, 0x1b,
+	0xe6, 0xc9, 0x3b, 0x3a, 0x61, 0x36, 0x61, 0x9a, 0xcd, 0x4c, 0xed, 0xdd, 0x5d, 0xff, 0x2f, 0x22,
+	0xca, 0x21, 0xf1, 0x3a, 0x88, 0xb4, 0x30, 0x88, 0xa8, 0x2d, 0x93, 0x98, 0x24, 0xc4, 0xfd, 0x55,
+	0x84, 0x56, 0xf2, 0xf4, 0xb8, 0x88, 0x22, 0x3b, 0xda, 0x57, 0xfd, 0x21, 0xc0, 0xb5, 0x16, 0x33,
+	0x5f, 0xba, 0x06, 0xe2, 0xb8, 0x1d, 0x30, 0xe2, 0x7d, 0x28, 0xa1, 0x01, 0xef, 0x11, 0x6a, 0x71,
+	0x4f, 0x12, 0x2a, 0xc2, 0x41, 0xa9, 0x29, 0xfd, 0xfc, 0x56, 0xdf, 0x8a, 0x1a, 0x3e, 0x32, 0x0c,
+	0x8a, 0x19, 0x7b, 0xce, 0xa9, 0xe5, 0x98, 0x9d, 0x59, 0xaa, 0xf8, 0x10, 0x8a, 0x61, 0x6d, 0x69,
+	0xa9, 0x22, 0x1c, 0xac, 0x1d, 0xee, 0xaa, 0x39, 0x86, 0xd5, 0xb0, 0x49, 0xb3, 0x74, 0x72, 0x76,
+	0xa3, 0xf0, 0x75, 0x3a, 0xaa, 0x09, 0x9d, 0x68, 0xd7, 0xd1, 0x83, 0x8f, 0xd3, 0x51, 0x6d, 0x56,
+	0xef, 0xd3, 0x74, 0x54, 0xdb, 0x9f, 0xc9, 0x1e, 0xce, 0x59, 0xc8, 0x28, 0xae, 0x96, 0x61, 0x27,
+	0x03, 0x75, 0x30, 0x73, 0x89, 0xc3, 0x70, 0xf5, 0x4c, 0x80, 0xeb, 0x2d, 0x66, 0x3e, 0xa6, 0x18,
+	0x71, 0xdc, 0x24, 0xe4, 0xad, 0xe5, 0x98, 0xa2, 0x04, 0xab, 0xba, 0x0f, 0x10, 0x1a, 0xfa, 0xeb,
+	0xc4, 0xa1, 0xcf, 0xf4, 0x08, 0xc7, 0xfd, 0x63, 0x23, 0x30, 0x51, 0xea, 0xc4, 0xa1, 0xa8, 0x00,
+	0xe8, 0x03, 0xc6, 0x89, 0x8d, 0xe9, 0xb1, 0x21, 0x2d, 0x07, 0xe4, 0x1c, 0x22, 0xee, 0x41, 0x89,
+	0x71, 0x44, 0xf9, 0x13, 0xc4, 0xb1, 0xf4, 0x5f, 0x40, 0xcf, 0x00, 0xbf, 0x2e, 0x76, 0x8c, 0x80,
+	0x5b, 0x09, 0xeb, 0x46, 0xa1, 0x28, 0xc3, 0xff, 0x94, 0x10, 0xfb, 0x85, 0xe7, 0x62, 0xa9, 0x18,
+	0x50, 0x49, 0x2c, 0x6e, 0xc1, 0x8a, 0x4b, 0x2d, 0x1d, 0x4b, 0xab, 0x01, 0x11, 0x06, 0x47, 0xeb,
+	0xfe, 0x9c, 0x62, 0xc5, 0x55, 0x19, 0xa4, 0xac, 0xbf, 0xc4, 0xfc, 0x10, 0xb6, 0x93, 0xb9, 0x3c,
+	0x23, 0x1e, 0xea, 0x73, 0xaf, 0x4d, 0x2c, 0x87, 0xb3, 0x4b, 0x26, 0x90, 0xf6, 0xb9, 0x74, 0xce,
+	0xe7, 0x36, 0x14, 0xdd, 0xa0, 0x46, 0x34, 0x83, 0x28, 0xca, 0xa8, 0x6a, 0x82, 0x92, 0xdf, 0x39,
+	0xd6, 0x26, 0x56, 0x60, 0x8d, 0x13, 0x8e, 0xfa, 0x21, 0x1c, 0xa9, 0x98, 0x87, 0xaa, 0x5f, 0x04,
+	0xd8, 0x68, 0x31, 0xb3, 0x4d, 0x89, 0x8e, 0x19, 0x6b, 0x23, 0xcf, 0xc6, 0x0e, 0xff, 0x37, 0xe5,
+	0xc8, 0x26, 0x03, 0x87, 0xc7, 0xca, 0xc3, 0xc8, 0x57, 0x62, 0x60, 0xa6, 0x53, 0xcb, 0xe5, 0x16,
+	0x71, 0xa2, 0x6f, 0x37, 0x0f, 0x65, 0xbc, 0xed, 0x42, 0xf9, 0x9c, 0xac, 0xd8, 0xd6, 0xe1, 0xf7,
+	0x65, 0x58, 0x6e, 0x31, 0x53, 0xec, 0xc2, 0x7a, 0xea, 0x52, 0xdd, 0xcc, 0xbd, 0x0c, 0x99, 0x53,
+	0x2b, 0xdf, 0x59, 0x24, 0x2b, 0x19, 0x21, 0x86, 0x2b, 0xe9, 0x73, 0xbd, 0x7f, 0xd1, 0xf6, 0x54,
+	0x9a, 0x5c, 0x5f, 0x28, 0x2d, 0x69, 0xf3, 0x1e, 0x36, 0xf3, 0x8e, 0xd0, 0xed, 0xcb, 0xb5, 0xa6,
+	0x92, 0xe5, 0xc6, 0x5f, 0x24, 0x27, 0x8d, 0x7b, 0x70, 0x35, 0xf3, 0xf1, 0x6f, 0x5d, 0x54, 0x26,
+	0x9d, 0x27, 0xab, 0x8b, 0xe5, 0xc5, 0x9d, 0xe4, 0x95, 0x0f, 0xfe, 0x4b, 0xd4, 0x7c, 0x7a, 0x32,
+	0x56, 0x84, 0xd3, 0xb1, 0x22, 0xfc, 0x1e, 0x2b, 0xc2, 0xe7, 0x89, 0x52, 0x38, 0x9d, 0x28, 0x85,
+	0x5f, 0x13, 0xa5, 0xf0, 0xaa, 0x6e, 0x5a, 0xbc, 0x37, 0xe8, 0xaa, 0x3a, 0xb1, 0x35, 0xda, 0x40,
+	0xfd, 0x7b, 0x6f, 0xb4, 0xfc, 0xa7, 0x89, 0x7b, 0x2e, 0x66, 0xdd, 0x62, 0xf0, 0xba, 0x36, 0xfe,
+	0x04, 0x00, 0x00, 0xff, 0xff, 0xd1, 0x7c, 0x61, 0xeb, 0x11, 0x06, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -174,6 +532,9 @@ type MsgClient interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
+	CreateBooking(ctx context.Context, in *MsgCreateBooking, opts ...grpc.CallOption) (*MsgCreateBookingResponse, error)
+	UpdateLoyaltyPoints(ctx context.Context, in *MsgUpdateLoyaltyPoints, opts ...grpc.CallOption) (*MsgUpdateLoyaltyPointsResponse, error)
+	ProcessPayment(ctx context.Context, in *MsgProcessPayment, opts ...grpc.CallOption) (*MsgProcessPaymentResponse, error)
 }
 
 type msgClient struct {
@@ -193,11 +554,41 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 	return out, nil
 }
 
+func (c *msgClient) CreateBooking(ctx context.Context, in *MsgCreateBooking, opts ...grpc.CallOption) (*MsgCreateBookingResponse, error) {
+	out := new(MsgCreateBookingResponse)
+	err := c.cc.Invoke(ctx, "/nestchain.nestchain.Msg/CreateBooking", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) UpdateLoyaltyPoints(ctx context.Context, in *MsgUpdateLoyaltyPoints, opts ...grpc.CallOption) (*MsgUpdateLoyaltyPointsResponse, error) {
+	out := new(MsgUpdateLoyaltyPointsResponse)
+	err := c.cc.Invoke(ctx, "/nestchain.nestchain.Msg/UpdateLoyaltyPoints", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) ProcessPayment(ctx context.Context, in *MsgProcessPayment, opts ...grpc.CallOption) (*MsgProcessPaymentResponse, error) {
+	out := new(MsgProcessPaymentResponse)
+	err := c.cc.Invoke(ctx, "/nestchain.nestchain.Msg/ProcessPayment", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
 	// UpdateParams defines a (governance) operation for updating the module
 	// parameters. The authority defaults to the x/gov module account.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
+	CreateBooking(context.Context, *MsgCreateBooking) (*MsgCreateBookingResponse, error)
+	UpdateLoyaltyPoints(context.Context, *MsgUpdateLoyaltyPoints) (*MsgUpdateLoyaltyPointsResponse, error)
+	ProcessPayment(context.Context, *MsgProcessPayment) (*MsgProcessPaymentResponse, error)
 }
 
 // UnimplementedMsgServer can be embedded to have forward compatible implementations.
@@ -206,6 +597,15 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
+}
+func (*UnimplementedMsgServer) CreateBooking(ctx context.Context, req *MsgCreateBooking) (*MsgCreateBookingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBooking not implemented")
+}
+func (*UnimplementedMsgServer) UpdateLoyaltyPoints(ctx context.Context, req *MsgUpdateLoyaltyPoints) (*MsgUpdateLoyaltyPointsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateLoyaltyPoints not implemented")
+}
+func (*UnimplementedMsgServer) ProcessPayment(ctx context.Context, req *MsgProcessPayment) (*MsgProcessPaymentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ProcessPayment not implemented")
 }
 
 func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
@@ -230,6 +630,60 @@ func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_CreateBooking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgCreateBooking)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).CreateBooking(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nestchain.nestchain.Msg/CreateBooking",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).CreateBooking(ctx, req.(*MsgCreateBooking))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_UpdateLoyaltyPoints_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgUpdateLoyaltyPoints)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).UpdateLoyaltyPoints(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nestchain.nestchain.Msg/UpdateLoyaltyPoints",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).UpdateLoyaltyPoints(ctx, req.(*MsgUpdateLoyaltyPoints))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_ProcessPayment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgProcessPayment)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).ProcessPayment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/nestchain.nestchain.Msg/ProcessPayment",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).ProcessPayment(ctx, req.(*MsgProcessPayment))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Msg_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "nestchain.nestchain.Msg",
 	HandlerType: (*MsgServer)(nil),
@@ -237,6 +691,18 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
+		},
+		{
+			MethodName: "CreateBooking",
+			Handler:    _Msg_CreateBooking_Handler,
+		},
+		{
+			MethodName: "UpdateLoyaltyPoints",
+			Handler:    _Msg_UpdateLoyaltyPoints_Handler,
+		},
+		{
+			MethodName: "ProcessPayment",
+			Handler:    _Msg_ProcessPayment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -306,6 +772,249 @@ func (m *MsgUpdateParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
+func (m *MsgCreateBooking) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateBooking) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateBooking) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Price) > 0 {
+		i -= len(m.Price)
+		copy(dAtA[i:], m.Price)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Price)))
+		i--
+		dAtA[i] = 0x3a
+	}
+	if len(m.RoomType) > 0 {
+		i -= len(m.RoomType)
+		copy(dAtA[i:], m.RoomType)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.RoomType)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.EndDate) > 0 {
+		i -= len(m.EndDate)
+		copy(dAtA[i:], m.EndDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.EndDate)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.StartDate) > 0 {
+		i -= len(m.StartDate)
+		copy(dAtA[i:], m.StartDate)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.StartDate)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.CustomerId) > 0 {
+		i -= len(m.CustomerId)
+		copy(dAtA[i:], m.CustomerId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.CustomerId)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.HotelId) > 0 {
+		i -= len(m.HotelId)
+		copy(dAtA[i:], m.HotelId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.HotelId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgCreateBookingResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgCreateBookingResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgCreateBookingResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateLoyaltyPoints) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateLoyaltyPoints) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateLoyaltyPoints) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Points) > 0 {
+		i -= len(m.Points)
+		copy(dAtA[i:], m.Points)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Points)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.CustomerId) > 0 {
+		i -= len(m.CustomerId)
+		copy(dAtA[i:], m.CustomerId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.CustomerId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgUpdateLoyaltyPointsResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgUpdateLoyaltyPointsResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgUpdateLoyaltyPointsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.TotalPoints) > 0 {
+		i -= len(m.TotalPoints)
+		copy(dAtA[i:], m.TotalPoints)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.TotalPoints)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgProcessPayment) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgProcessPayment) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgProcessPayment) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Description) > 0 {
+		i -= len(m.Description)
+		copy(dAtA[i:], m.Description)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Description)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Amount) > 0 {
+		i -= len(m.Amount)
+		copy(dAtA[i:], m.Amount)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Amount)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.CustomerId) > 0 {
+		i -= len(m.CustomerId)
+		copy(dAtA[i:], m.CustomerId)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.CustomerId)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgProcessPaymentResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgProcessPaymentResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgProcessPaymentResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	offset -= sovTx(v)
 	base := offset
@@ -333,6 +1042,120 @@ func (m *MsgUpdateParams) Size() (n int) {
 }
 
 func (m *MsgUpdateParamsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgCreateBooking) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.HotelId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.CustomerId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.StartDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.EndDate)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.RoomType)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Price)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgCreateBookingResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgUpdateLoyaltyPoints) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.CustomerId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Points)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgUpdateLoyaltyPointsResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.TotalPoints)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgProcessPayment) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.CustomerId)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Amount)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Description)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgProcessPaymentResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -489,6 +1312,786 @@ func (m *MsgUpdateParamsResponse) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: MsgUpdateParamsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateBooking) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateBooking: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateBooking: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field HotelId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.HotelId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CustomerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CustomerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field StartDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.StartDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 5:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field EndDate", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.EndDate = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field RoomType", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.RoomType = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Price", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Price = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgCreateBookingResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgCreateBookingResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgCreateBookingResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateLoyaltyPoints) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateLoyaltyPoints: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateLoyaltyPoints: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CustomerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CustomerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Points", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Points = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgUpdateLoyaltyPointsResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgUpdateLoyaltyPointsResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgUpdateLoyaltyPointsResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TotalPoints", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.TotalPoints = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgProcessPayment) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgProcessPayment: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgProcessPayment: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CustomerId", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CustomerId = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Amount", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Amount = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 4:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Description", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Description = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgProcessPaymentResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgProcessPaymentResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgProcessPaymentResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:

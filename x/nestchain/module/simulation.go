@@ -23,7 +23,19 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgCreateBooking = "op_weight_msg_create_booking"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateBooking int = 100
+
+	opWeightMsgUpdateLoyaltyPoints = "op_weight_msg_update_loyalty_points"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateLoyaltyPoints int = 100
+
+	opWeightMsgProcessPayment = "op_weight_msg_process_payment"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgProcessPayment int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module.
@@ -46,6 +58,39 @@ func (am AppModule) RegisterStoreDecoder(_ simtypes.StoreDecoderRegistry) {}
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
 
+	var weightMsgCreateBooking int
+	simState.AppParams.GetOrGenerate(opWeightMsgCreateBooking, &weightMsgCreateBooking, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateBooking = defaultWeightMsgCreateBooking
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateBooking,
+		nestchainsimulation.SimulateMsgCreateBooking(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateLoyaltyPoints int
+	simState.AppParams.GetOrGenerate(opWeightMsgUpdateLoyaltyPoints, &weightMsgUpdateLoyaltyPoints, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateLoyaltyPoints = defaultWeightMsgUpdateLoyaltyPoints
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateLoyaltyPoints,
+		nestchainsimulation.SimulateMsgUpdateLoyaltyPoints(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgProcessPayment int
+	simState.AppParams.GetOrGenerate(opWeightMsgProcessPayment, &weightMsgProcessPayment, nil,
+		func(_ *rand.Rand) {
+			weightMsgProcessPayment = defaultWeightMsgProcessPayment
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgProcessPayment,
+		nestchainsimulation.SimulateMsgProcessPayment(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
 	// this line is used by starport scaffolding # simapp/module/operation
 
 	return operations
@@ -54,6 +99,30 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 // ProposalMsgs returns msgs used for governance proposals for simulations.
 func (am AppModule) ProposalMsgs(simState module.SimulationState) []simtypes.WeightedProposalMsg {
 	return []simtypes.WeightedProposalMsg{
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgCreateBooking,
+			defaultWeightMsgCreateBooking,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				nestchainsimulation.SimulateMsgCreateBooking(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgUpdateLoyaltyPoints,
+			defaultWeightMsgUpdateLoyaltyPoints,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				nestchainsimulation.SimulateMsgUpdateLoyaltyPoints(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
+		simulation.NewWeightedProposalMsg(
+			opWeightMsgProcessPayment,
+			defaultWeightMsgProcessPayment,
+			func(r *rand.Rand, ctx sdk.Context, accs []simtypes.Account) sdk.Msg {
+				nestchainsimulation.SimulateMsgProcessPayment(am.accountKeeper, am.bankKeeper, am.keeper)
+				return nil
+			},
+		),
 		// this line is used by starport scaffolding # simapp/module/OpMsg
 	}
 }

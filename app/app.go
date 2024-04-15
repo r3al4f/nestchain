@@ -76,6 +76,7 @@ import (
 	ibckeeper "github.com/cosmos/ibc-go/v8/modules/core/keeper"
 
 	"github.com/r3al4f/nestchain/docs"
+	hotelsmodulekeeper "github.com/r3al4f/nestchain/x/hotels/keeper"
 	nestchainmodulekeeper "github.com/r3al4f/nestchain/x/nestchain/keeper"
 )
 
@@ -139,6 +140,7 @@ type App struct {
 	ScopedICAHostKeeper       capabilitykeeper.ScopedKeeper
 
 	NestchainKeeper nestchainmodulekeeper.Keeper
+	HotelsKeeper    hotelsmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	// simulation manager
@@ -278,6 +280,7 @@ func New(
 		&app.GroupKeeper,
 		&app.CircuitBreakerKeeper,
 		&app.NestchainKeeper,
+		&app.HotelsKeeper,
 	); err != nil {
 		panic(err)
 	}

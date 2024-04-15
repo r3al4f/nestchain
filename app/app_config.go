@@ -60,13 +60,18 @@ import (
 	// NOTE: Capability module must occur first so that it can initialize any capabilities
 	// so that other modules that want to create or claim capabilities afterwards in InitChain
 	// can do so safely.
+	hotelsmodulev1 "github.com/r3al4f/nestchain/api/nestchain/hotels/module"
 	_ "github.com/r3al4f/nestchain/x/nestchain/module"
 	nestchainmoduletypes "github.com/r3al4f/nestchain/x/nestchain/types"
+
+	// cosmos-sdk/ibc modules
+	_ "github.com/r3al4f/nestchain/x/hotels/module"
+	hotelsmoduletypes "github.com/r3al4f/nestchain/x/hotels/types"
 )
 
 var (
 	genesisModuleOrder = []string{
-		// cosmos-sdk/ibc modules
+
 		capabilitytypes.ModuleName,
 		authtypes.ModuleName,
 		banktypes.ModuleName,
@@ -94,6 +99,7 @@ var (
 		circuittypes.ModuleName,
 		// chain modules
 		nestchainmoduletypes.ModuleName,
+		hotelsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	}
 
@@ -119,6 +125,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		nestchainmoduletypes.ModuleName,
+		hotelsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/beginBlockers
 	}
 
@@ -138,6 +145,7 @@ var (
 		ibcfeetypes.ModuleName,
 		// chain modules
 		nestchainmoduletypes.ModuleName,
+		hotelsmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/endBlockers
 	}
 
@@ -158,6 +166,7 @@ var (
 		{Account: ibctransfertypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner}},
 		{Account: ibcfeetypes.ModuleName},
 		{Account: icatypes.ModuleName},
+		{Account: hotelsmoduletypes.ModuleName, Permissions: []string{authtypes.Minter, authtypes.Burner, authtypes.Staking}},
 		// this line is used by starport scaffolding # stargate/app/maccPerms
 	}
 
@@ -296,6 +305,10 @@ var (
 			{
 				Name:   nestchainmoduletypes.ModuleName,
 				Config: appconfig.WrapAny(&nestchainmodulev1.Module{}),
+			},
+			{
+				Name:   hotelsmoduletypes.ModuleName,
+				Config: appconfig.WrapAny(&hotelsmodulev1.Module{}),
 			},
 			// this line is used by starport scaffolding # stargate/app/moduleConfig
 		},

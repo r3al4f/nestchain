@@ -28,6 +28,24 @@ func (am AppModule) AutoCLIOptions() *autocliv1.ModuleOptions {
 					RpcMethod: "UpdateParams",
 					Skip:      true, // skipped because authority gated
 				},
+				{
+					RpcMethod:      "CreateBooking",
+					Use:            "create-booking [hotel-id] [customer-id] [start-date] [end-date] [room-type] [price]",
+					Short:          "Send a createBooking tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "hotelId"}, {ProtoField: "customerId"}, {ProtoField: "startDate"}, {ProtoField: "endDate"}, {ProtoField: "roomType"}, {ProtoField: "price"}},
+				},
+				{
+					RpcMethod:      "UpdateLoyaltyPoints",
+					Use:            "update-loyalty-points [customer-id] [points]",
+					Short:          "Send a updateLoyaltyPoints tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "customerId"}, {ProtoField: "points"}},
+				},
+				{
+					RpcMethod:      "ProcessPayment",
+					Use:            "process-payment [customer-id] [amount] [description]",
+					Short:          "Send a processPayment tx",
+					PositionalArgs: []*autocliv1.PositionalArgDescriptor{{ProtoField: "customerId"}, {ProtoField: "amount"}, {ProtoField: "description"}},
+				},
 				// this line is used by ignite scaffolding # autocli/tx
 			},
 		},

@@ -1,0 +1,9 @@
+syntax = "proto3";
+package nestchain.hotels;
+
+message Reward {
+  string customer_id = 1; // Identifier for the customer
+  int32 points = 2; // Loyalty points
+  string description = 3; // Description of the reward or the reason for point adjustment
+}
+

@@ -1,0 +1,17 @@
+syntax = "proto3";
+package nestchain.hotels;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "nestchain/hotels/params.proto";
+
+option go_package = "github.com/r3al4f/nestchain/x/hotels/types";
+
+// GenesisState defines the hotels module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

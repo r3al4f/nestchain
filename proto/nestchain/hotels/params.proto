@@ -1,0 +1,15 @@
+syntax = "proto3";
+package nestchain.hotels;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/r3al4f/nestchain/x/hotels/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "nestchain/x/hotels/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
