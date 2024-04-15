@@ -1,0 +1,17 @@
+syntax = "proto3";
+package nestchain.nestchain;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+import "nestchain/nestchain/params.proto";
+
+option go_package = "github.com/r3al4f/nestchain/x/nestchain/types";
+
+// GenesisState defines the nestchain module's genesis state.
+message GenesisState {
+  // params defines all the parameters of the module.
+  Params params = 1 [
+    (gogoproto.nullable) = false,
+    (amino.dont_omitempty) = true
+  ];
+}

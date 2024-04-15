@@ -1,0 +1,15 @@
+syntax = "proto3";
+package nestchain.nestchain;
+
+import "amino/amino.proto";
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/r3al4f/nestchain/x/nestchain/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (amino.name) = "nestchain/x/nestchain/Params";
+  option (gogoproto.equal) = true;
+
+  
+}
